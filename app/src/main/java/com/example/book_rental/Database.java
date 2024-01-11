@@ -10,7 +10,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@androidx.room.Database(entities = {Book.class}, version = 1, exportSchema = false)
+@androidx.room.Database(entities = {Book.class, Borrow.class}, version = 2, exportSchema = false)
 public abstract class Database extends RoomDatabase {
 
     private static Database databaseInstance;
@@ -22,6 +22,8 @@ public abstract class Database extends RoomDatabase {
             databaseInstance = Room.databaseBuilder(context.getApplicationContext(),
                             Database.class,"book_database")
                     .addCallback(roomDatabaseCallback)
+                    .fallbackToDestructiveMigration()
+                    .allowMainThreadQueries()
                     .build();
         }
         return databaseInstance;

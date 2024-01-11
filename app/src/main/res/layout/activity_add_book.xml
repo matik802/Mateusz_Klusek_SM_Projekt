@@ -47,7 +47,8 @@
         android:fontFamily="sans-serif-light"
         android:hint="@string/hint_book_amount"
         android:inputType="textAutoComplete"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:digits="0123456789"/>
 
     <Button
         android:id="@+id/button_save"

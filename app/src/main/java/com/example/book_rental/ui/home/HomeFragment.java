@@ -5,6 +5,8 @@ import static android.app.Activity.RESULT_OK;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.icu.text.DateFormat;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,6 +28,9 @@ import com.example.book_rental.AddBookActivity;
 import com.example.book_rental.Book;
 import com.example.book_rental.BookDetailsActivity;
 import com.example.book_rental.BookViewModel;
+import com.example.book_rental.Borrow;
+import com.example.book_rental.BorrowViewModel;
+import com.example.book_rental.Const;
 import com.example.book_rental.MainActivity;
 import com.example.book_rental.R;
 import com.example.book_rental.databinding.FragmentHomeBinding;
@@ -35,13 +40,17 @@ import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     private BookViewModel bookViewModel;
+    private BorrowViewModel borrowViewModel;
     public static final int NEW_BOOK_ACTIVITY_REQUEST_CODE = 1;
     public static final int EDIT_BOOK_ACTIVITY_REQUEST_CODE = 2;
     public static final int BOOK_DETAILS_ACTIVITY_REQUEST_CODE = 3;
@@ -69,6 +78,8 @@ public class HomeFragment extends Fragment {
         final BookAdapter adapter = new BookAdapter();
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+
+        borrowViewModel = new ViewModelProvider(requireActivity()).get(BorrowViewModel.class);
 
         bookViewModel = new ViewModelProvider(requireActivity()).get(BookViewModel.class);
 //        bookViewModel.findAll().observe((LifecycleOwner) getContext(), adapter::setBooks);
@@ -127,6 +138,23 @@ public class HomeFragment extends Fragment {
         }
         else if (resultCode == RESULT_OK && requestCode == BOOK_DETAILS_ACTIVITY_REQUEST_CODE) {
             Log.d("aaaaaaaaaaaaaaaaaaa",String.valueOf(data.getIntExtra(AddBookActivity.EXTRA_EDIT_BOOK_ID,0)));
+            int bookId = data.getIntExtra(AddBookActivity.EXTRA_EDIT_BOOK_ID,0);
+            long mills = System.currentTimeMillis();
+            Date date =  date = new Date(mills);
+
+            String pattern = "MM/dd/yyyy HH:mm:ss";
+            DateFormat df = new SimpleDateFormat(pattern);
+            Date today = Calendar.getInstance().getTime();
+            String todayAsString = df.format(date);
+            Log.d("bbbbbbbbbbbbbbbb",todayAsString);
+
+
+            Borrow borrow = new Borrow(bookId, Const.statusPending,mills); //DATA TODO
+            Book book = bookViewModel.findById(bookId);
+            int amount = book.getAmount()-1;
+            book.setAmount(amount);
+            bookViewModel.update(book);
+            borrowViewModel.insert(borrow);
         }
         else {
             Snackbar.make(view.findViewById(R.id.home_layout),

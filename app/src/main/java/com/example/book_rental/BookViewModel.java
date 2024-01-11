@@ -21,10 +21,10 @@ public class BookViewModel extends AndroidViewModel {
     public LiveData<List<Book>> findAll() {
         return books;
     }
-    Book findById(int id) {
+    public Book findById(int id) {
         return bookRepository.findById(id);
     }
-    List<Book> findBookWithTitle(String title) { return bookRepository.findBookWithTitle(title); }
+    public List<Book> findBookWithTitle(String title) { return bookRepository.findBookWithTitle(title); }
 
     public void insert(Book book) {
         bookRepository.insert(book);

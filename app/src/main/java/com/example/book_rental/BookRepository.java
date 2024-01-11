@@ -16,7 +16,7 @@ public class BookRepository {
     BookRepository(Application application) {
         Database database = Database.getDatabase(application);
         bookDao = database.bookDao();
-        books = bookDao.findAll();
+        books = bookDao.findAllBooks();
     }
 
     LiveData<List<Book>> findAll() {

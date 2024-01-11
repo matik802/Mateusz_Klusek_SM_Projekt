@@ -29,7 +29,7 @@
     <string name="button_edit">Edit</string>
     <string name="button_delete">Delete</string>
     <string name="button_return">Return</string>
-    <string name="button_rent_book">Rent</string>
+    <string name="button_rent_book">Borrow</string>
 
     <string name="delete_pop_up_title">Delete book</string>
     <string name="delete_pop_up_content">Are you sure you want to delete this book?</string>

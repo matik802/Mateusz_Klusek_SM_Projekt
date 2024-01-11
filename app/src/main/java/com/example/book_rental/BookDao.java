@@ -26,10 +26,28 @@ public interface BookDao {
     void deleteAll();
 
     @Query("SELECT * FROM book ORDER BY title")
-    LiveData<List<Book>> findAll();
+    LiveData<List<Book>> findAllBooks();
 
     @Query("SELECT * FROM book WHERE title LIKE :title")
     List<Book> findBookWithTitle(String title);
     @Query("SELECT * FROM book WHERE id = :id")
     Book findBookWithId(int id);
+
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insert(Borrow borrow);
+
+    @Update
+    void update(Borrow borrow);
+
+    @Delete
+    void delete(Borrow borrow);
+    @Query("SELECT * FROM borrow WHERE id = :id")
+    Borrow findBorrowWithId(int id);
+
+    @Query("SELECT * FROM borrow")
+    LiveData<List<Borrow>> findAllBorrows();
+
+    @Query("SELECT * FROM borrow JOIN book ON borrow.book_id = book.id")
+    LiveData<List<BookAndBorrow>> getBooksAndBorrows();
 }

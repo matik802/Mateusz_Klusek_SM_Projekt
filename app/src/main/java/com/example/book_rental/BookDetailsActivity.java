@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.Image;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -63,20 +64,24 @@ public class BookDetailsActivity extends AppCompatActivity {
         _amountTextView.setText(R.string.book_amount);
         amountTextView.setText(intent.getStringExtra(EXTRA_EDIT_BOOK_AMOUNT));
 
-        rentButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent replyIntent = new Intent();
-                if (intent.hasExtra(EXTRA_EDIT_BOOK_ID)) {
-                    replyIntent.putExtra(EXTRA_EDIT_BOOK_ID, intent.getIntExtra(EXTRA_EDIT_BOOK_ID, 0));
-                    setResult(RESULT_OK, replyIntent);
+        if (Integer.parseInt(intent.getStringExtra(EXTRA_EDIT_BOOK_AMOUNT)) == 0) {
+            rentButton.setBackgroundColor(Color.GRAY);
+        }
+        else {
+            rentButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent replyIntent = new Intent();
+                    if (intent.hasExtra(EXTRA_EDIT_BOOK_ID)) {
+                        replyIntent.putExtra(EXTRA_EDIT_BOOK_ID, intent.getIntExtra(EXTRA_EDIT_BOOK_ID, 0));
+                        setResult(RESULT_OK, replyIntent);
+                    }
+                    else {
+                        setResult(RESULT_CANCELED, replyIntent);
+                    }
+                    finish();
                 }
-                else {
-                    setResult(RESULT_CANCELED, replyIntent);
-                }
-                finish();
-            }
-        });
-
+            });
+        }
     }
 }
