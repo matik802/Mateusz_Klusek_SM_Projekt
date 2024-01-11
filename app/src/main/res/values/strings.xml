@@ -1,6 +1,39 @@
 <resources>
     <string name="app_name">BOOK_RENTAL</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_books">Books</string>
+    <string name="title_borrows">Borrows</string>
+    <string name="title_messages">Messages</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="book_added">Book added</string>
+    <string name="book_edited">Book edited</string>
+    <string name="book_archived">Book archived</string>
+
+    <string name="hint_book_title">Title...</string>
+    <string name="hint_book_author">Author...</string>
+    <string name="hint_book_ISBN">ISBN...</string>
+    <string name="hint_book_picture">Picture...</string>
+    <string name="hint_book_amount">Amount...</string>
+
+    <string name="book_title">Title:&#160;</string>
+    <string name="book_author">Author:&#160;</string>
+    <string name="book_ISBN">ISBN:&#160;</string>
+    <string name="book_picture">Picture:&#160;</string>
+    <string name="book_amount">Amount:&#160;</string>
+
+    <string name="button_save">Save</string>
+    <string name="button_edit">Edit</string>
+    <string name="button_delete">Delete</string>
+    <string name="button_return">Return</string>
+    <string name="button_rent_book">Rent</string>
+
+    <string name="delete_pop_up_title">Delete book</string>
+    <string name="delete_pop_up_content">Are you sure you want to delete this book?</string>
+    <string name="delete_pop_up_confirmation">Delete</string>
+    <string name="delete_pop_up_cancelation">Cancel</string>
+    <string name="empty_not_saved">Book not saved because there are empty fields.</string>
 </resources>
