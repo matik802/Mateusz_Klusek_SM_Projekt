@@ -36,4 +36,10 @@
     <string name="delete_pop_up_confirmation">Delete</string>
     <string name="delete_pop_up_cancelation">Cancel</string>
     <string name="empty_not_saved">Book not saved because there are empty fields.</string>
+
+    <string name="borrow_status_label">Status</string>
+    <string name="borrow_date_label">Date</string>
+    <string name="book_title_label">Title</string>
+    <string name="book_ISBN_date_label">ISBN/Date</string>
+    <string name="user_email_label">Email</string>
 </resources>

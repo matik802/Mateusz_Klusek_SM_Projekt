@@ -5,10 +5,10 @@ import androidx.room.Relation;
 
 public class BookAndBorrow {
     @Embedded
-    Borrow borrow;
+    public Borrow borrow;
     @Relation(
             parentColumn = "book_id",
             entityColumn = "id"
     )
-    Book book;
+    public Book book;
 }

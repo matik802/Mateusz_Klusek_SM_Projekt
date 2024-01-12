@@ -11,15 +11,20 @@ import java.util.List;
 public class BorrowViewModel extends AndroidViewModel {
     private BorrowRepository borrowRepository;
     private LiveData<List<Borrow>> borrows;
+    private LiveData<List<BookAndBorrow>> booksAndBorrows;
 
     public BorrowViewModel(@NonNull Application application) {
         super(application);
         borrowRepository = new BorrowRepository(application);
         borrows = borrowRepository.findAll();
+        booksAndBorrows = borrowRepository.findAllBooksAndBorrows();
     }
 
     public LiveData<List<Borrow>> findAll() {
         return borrows;
+    }
+    public LiveData<List<BookAndBorrow>> findAllBooksAndBorrows() {
+        return booksAndBorrows;
     }
     Borrow findById(int id) {
         return borrowRepository.findById(id);
