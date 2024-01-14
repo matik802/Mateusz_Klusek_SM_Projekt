@@ -84,8 +84,6 @@ public class BookDetailsActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     Intent replyIntent = new Intent();
                     if (intent.hasExtra(EXTRA_EDIT_BOOK_ID)) {
-                        Intent userIntent = getIntent();
-                        //
                         replyIntent.putExtra(EXTRA_EDIT_BOOK_ID, intent.getIntExtra(EXTRA_EDIT_BOOK_ID, 0));
                         setResult(RESULT_OK, replyIntent);
                     }

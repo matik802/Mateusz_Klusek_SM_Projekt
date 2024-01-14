@@ -66,11 +66,6 @@ public class HomeFragment extends Fragment {
     View view;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        sharedpreferences = getActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
-        int userId = sharedpreferences.getInt(USER_ID_KEY, 0);
-        String role = sharedpreferences.getString(USER_ROLE_KEY, null);
-        Log.d("USER_INTENT", "userId: "+userId+"role: "+role);
-
         view =  inflater.inflate(R.layout.fragment_home, container, false);
 
 //        HomeViewModel homeViewModel =
@@ -78,6 +73,9 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        sharedpreferences = getActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+        String role = sharedpreferences.getString(USER_ROLE_KEY, null);
 
         //final TextView textView = binding.textHome;
 //        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
@@ -107,6 +105,9 @@ public class HomeFragment extends Fragment {
                 startActivityForResult(intent, NEW_BOOK_ACTIVITY_REQUEST_CODE);
             }
         });
+
+        if (role.equals(Const.roleUser))
+            addBookButton.setVisibility(View.GONE);
 
         return view;
     }
@@ -148,16 +149,16 @@ public class HomeFragment extends Fragment {
                     Snackbar.LENGTH_LONG).show();
         }
         else if (resultCode == RESULT_OK && requestCode == BOOK_DETAILS_ACTIVITY_REQUEST_CODE) {
-            Log.d("aaaaaaaaaaaaaaaaaaa",String.valueOf(data.getIntExtra(AddBookActivity.EXTRA_EDIT_BOOK_ID,0)));
+//            Log.d("aaaaaaaaaaaaaaaaaaa",String.valueOf(data.getIntExtra(AddBookActivity.EXTRA_EDIT_BOOK_ID,0)));
             int bookId = data.getIntExtra(AddBookActivity.EXTRA_EDIT_BOOK_ID,0);
             long mills = System.currentTimeMillis();
             Date date =  date = new Date(mills);
 
-            String pattern = "MM/dd/yyyy HH:mm:ss";
-            DateFormat df = new SimpleDateFormat(pattern);
-            Date today = Calendar.getInstance().getTime();
-            String todayAsString = df.format(date);
-            Log.d("bbbbbbbbbbbbbbbb",todayAsString);
+//            String pattern = "MM/dd/yyyy HH:mm:ss";
+//            DateFormat df = new SimpleDateFormat(pattern);
+//            Date today = Calendar.getInstance().getTime();
+//            String todayAsString = df.format(date);
+//            Log.d("bbbbbbbbbbbbbbbb",todayAsString);
 
             sharedpreferences = getActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
             int userId = sharedpreferences.getInt(USER_ID_KEY, 0);
@@ -231,6 +232,15 @@ public class HomeFragment extends Fragment {
                     dialog.show();
                 }
             });
+
+            sharedpreferences = getActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+            String role = sharedpreferences.getString(USER_ROLE_KEY, null);
+
+            if (role.equals(Const.roleUser)) {
+                bookEditButton.setVisibility(View.GONE);
+                bookDeleteButton.setVisibility(View.GONE);
+            }
+
         }
 
         public void bind(Book book) {

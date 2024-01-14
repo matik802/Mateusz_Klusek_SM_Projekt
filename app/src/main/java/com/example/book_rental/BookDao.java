@@ -50,8 +50,14 @@ public interface BookDao {
     @Query("SELECT * FROM borrow")
     LiveData<List<Borrow>> findAllBorrows();
 
-    @Query("SELECT * FROM borrow JOIN book ON borrow.book_id = book.id")
-    LiveData<List<BookAndUserForBorrow>> getBooksAndBorrows();
+    @Query("SELECT * FROM borrow JOIN book ON borrow.book_id = book.id ORDER BY borrow.date desc")
+    LiveData<List<BookAndUserForBorrow>> findBooksAndUsersForBorrows();
+
+    @Query("SELECT * FROM borrow " +
+            "JOIN book ON borrow.book_id = book.id " +
+            "JOIN user ON borrow.user_id = user.id " +
+            "WHERE borrow.user_id = :userId")
+    LiveData<List<BookAndUserForBorrow>> findBooksAndUsersForBorrowsForUser(int userId);
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
