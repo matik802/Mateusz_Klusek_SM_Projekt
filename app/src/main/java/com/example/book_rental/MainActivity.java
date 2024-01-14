@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
+    public static final String EXTRA_USER_ID = "pb.edu.pl.EXTRA_USER_ID";
+    public static final String EXTRA_USER_ROLE = "pb.edu.pl.EXTRA_USER_ROLE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

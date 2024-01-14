@@ -15,6 +15,13 @@ import java.time.LocalDateTime;
                 childColumns = {"book_id"},
                 onDelete = ForeignKey.CASCADE,
                 onUpdate = ForeignKey.CASCADE
+        ),
+        @ForeignKey(
+                entity = User.class,
+                parentColumns = {"id"},
+                childColumns = {"user_id"},
+                onDelete = ForeignKey.CASCADE,
+                onUpdate = ForeignKey.CASCADE
         )
 }
 )
@@ -23,10 +30,13 @@ public class Borrow {
     private int id;
     @ColumnInfo(name = "book_id", index = true)
     private int bookId;
+    @ColumnInfo(name = "user_id", index = true)
+    private int userId;
     private String status;
     private long date;
-    public Borrow(int bookId, String status, long date) {
+    public Borrow(int bookId, int userId, String status, long date) {
         this.bookId = bookId;
+        this.userId = userId;
         this.status = status;
         this.date = date;
     }
@@ -41,6 +51,12 @@ public class Borrow {
     }
     public void setBookId(int bookId) {
         this.bookId = bookId;
+    }
+    public int getUserId() {
+        return userId;
+    }
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
     public String getStatus() {
         return status;

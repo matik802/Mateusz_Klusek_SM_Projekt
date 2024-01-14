@@ -4,4 +4,7 @@ public class Const {
     public static final String statusInMagazine = "IN_MAGAZINE";
     public static final String statusPending = "PENDING";
     public static final String statusBorrowed = "BORROWED";
+    public static final String roleUser = "User";
+    public static final String roleAdmin = "Admin";
+    public static final String adminEmail = "admin@admin.com";
 }

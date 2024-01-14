@@ -1,9 +1,14 @@
 package com.example.book_rental;
 
+import static com.example.book_rental.MainActivity.EXTRA_USER_ID;
+import static com.example.book_rental.MainActivity.EXTRA_USER_ROLE;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.Image;
 import android.os.Bundle;
@@ -26,6 +31,12 @@ public class BookDetailsActivity extends AppCompatActivity {
     public static final String EXTRA_EDIT_BOOK_ISBN = "pb.edu.pl.EDIT_BOOK_ISBN";
     public static final String EXTRA_EDIT_BOOK_PICTURE = "pb.edu.pl.EDIT_BOOK_PICTURE";
     public static final String EXTRA_EDIT_BOOK_AMOUNT = "pb.edu.pl.EDIT_BOOK_AMOUNT";
+    public static final String EXTRA_USER_ID = "pb.edu.pl.EXTRA_USER_ID";
+    public static final String EXTRA_USER_ROLE = "pb.edu.pl.EXTRA_USER_ROLE";
+    public static final String SHARED_PREFS = "shared_prefs";
+    public static final String USER_ID_KEY = "user_id_key";
+    public static final String USER_ROLE_KEY = "user_role_key";
+    SharedPreferences sharedpreferences;
     private TextView titleTextView;
     private TextView authorTextView;
     private TextView amountTextView;
@@ -73,6 +84,8 @@ public class BookDetailsActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     Intent replyIntent = new Intent();
                     if (intent.hasExtra(EXTRA_EDIT_BOOK_ID)) {
+                        Intent userIntent = getIntent();
+                        //
                         replyIntent.putExtra(EXTRA_EDIT_BOOK_ID, intent.getIntExtra(EXTRA_EDIT_BOOK_ID, 0));
                         setResult(RESULT_OK, replyIntent);
                     }

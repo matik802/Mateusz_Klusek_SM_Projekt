@@ -9,7 +9,7 @@ import java.util.List;
 public class BorrowRepository {
     private BookDao bookDao;
     private LiveData<List<Borrow>> borrows;
-    private LiveData<List<BookAndBorrow>> booksAndBorrows;
+    private LiveData<List<BookAndUserForBorrow>> booksAndBorrows;
 
     BorrowRepository(Application application) {
         Database database = Database.getDatabase(application);
@@ -21,7 +21,7 @@ public class BorrowRepository {
     LiveData<List<Borrow>> findAll() {
         return borrows;
     }
-    LiveData<List<BookAndBorrow>> findAllBooksAndBorrows() {
+    LiveData<List<BookAndUserForBorrow>> findAllBooksAndBorrows() {
         return booksAndBorrows;
     }
     Borrow findById(int id) {

@@ -2,9 +2,14 @@ package com.example.book_rental.ui.home;
 
 import static android.app.Activity.RESULT_OK;
 
+import static com.example.book_rental.MainActivity.EXTRA_USER_ID;
+import static com.example.book_rental.MainActivity.EXTRA_USER_ROLE;
+
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.icu.text.DateFormat;
 import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
@@ -48,17 +53,23 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    private FragmentHomeBinding binding;
-    private BookViewModel bookViewModel;
-    private BorrowViewModel borrowViewModel;
     public static final int NEW_BOOK_ACTIVITY_REQUEST_CODE = 1;
     public static final int EDIT_BOOK_ACTIVITY_REQUEST_CODE = 2;
     public static final int BOOK_DETAILS_ACTIVITY_REQUEST_CODE = 3;
-
+    public static final String SHARED_PREFS = "shared_prefs";
+    public static final String USER_ID_KEY = "user_id_key";
+    public static final String USER_ROLE_KEY = "user_role_key";
+    private FragmentHomeBinding binding;
+    private BookViewModel bookViewModel;
+    private BorrowViewModel borrowViewModel;
+    SharedPreferences sharedpreferences;
     View view;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-        ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        sharedpreferences = getActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+        int userId = sharedpreferences.getInt(USER_ID_KEY, 0);
+        String role = sharedpreferences.getString(USER_ROLE_KEY, null);
+        Log.d("USER_INTENT", "userId: "+userId+"role: "+role);
 
         view =  inflater.inflate(R.layout.fragment_home, container, false);
 
@@ -148,8 +159,9 @@ public class HomeFragment extends Fragment {
             String todayAsString = df.format(date);
             Log.d("bbbbbbbbbbbbbbbb",todayAsString);
 
-
-            Borrow borrow = new Borrow(bookId, Const.statusPending,mills); //DATA TODO
+            sharedpreferences = getActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+            int userId = sharedpreferences.getInt(USER_ID_KEY, 0);
+            Borrow borrow = new Borrow(bookId, userId, Const.statusPending,mills);
             Book book = bookViewModel.findById(bookId);
             int amount = book.getAmount()-1;
             book.setAmount(amount);
@@ -233,12 +245,12 @@ public class HomeFragment extends Fragment {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(getContext(), BookDetailsActivity.class);
-            intent.putExtra(AddBookActivity.EXTRA_EDIT_BOOK_ID, book.getId());
-            intent.putExtra(AddBookActivity.EXTRA_EDIT_BOOK_TITLE, book.getTitle());
-            intent.putExtra(AddBookActivity.EXTRA_EDIT_BOOK_AUTHOR, book.getAuthor());
-            intent.putExtra(AddBookActivity.EXTRA_EDIT_BOOK_ISBN, book.getISBN());
-            intent.putExtra(AddBookActivity.EXTRA_EDIT_BOOK_PICTURE, book.getImage());
-            intent.putExtra(AddBookActivity.EXTRA_EDIT_BOOK_AMOUNT, String.valueOf(book.getAmount()));
+            intent.putExtra(BookDetailsActivity.EXTRA_EDIT_BOOK_ID, book.getId());
+            intent.putExtra(BookDetailsActivity.EXTRA_EDIT_BOOK_TITLE, book.getTitle());
+            intent.putExtra(BookDetailsActivity.EXTRA_EDIT_BOOK_AUTHOR, book.getAuthor());
+            intent.putExtra(BookDetailsActivity.EXTRA_EDIT_BOOK_ISBN, book.getISBN());
+            intent.putExtra(BookDetailsActivity.EXTRA_EDIT_BOOK_PICTURE, book.getImage());
+            intent.putExtra(BookDetailsActivity.EXTRA_EDIT_BOOK_AMOUNT, String.valueOf(book.getAmount()));
             startActivityForResult(intent, BOOK_DETAILS_ACTIVITY_REQUEST_CODE);
         }
     }

@@ -30,6 +30,7 @@ public interface BookDao {
 
     @Query("SELECT * FROM book WHERE title LIKE :title")
     List<Book> findBookWithTitle(String title);
+
     @Query("SELECT * FROM book WHERE id = :id")
     Book findBookWithId(int id);
 
@@ -42,6 +43,7 @@ public interface BookDao {
 
     @Delete
     void delete(Borrow borrow);
+
     @Query("SELECT * FROM borrow WHERE id = :id")
     Borrow findBorrowWithId(int id);
 
@@ -49,5 +51,23 @@ public interface BookDao {
     LiveData<List<Borrow>> findAllBorrows();
 
     @Query("SELECT * FROM borrow JOIN book ON borrow.book_id = book.id")
-    LiveData<List<BookAndBorrow>> getBooksAndBorrows();
+    LiveData<List<BookAndUserForBorrow>> getBooksAndBorrows();
+
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insert(User user);
+
+    @Update
+    void update(User user);
+
+    @Delete
+    void delete(User user);
+
+    @Query("SELECT * FROM user WHERE id = :id")
+    User findUserWithId(int id);
+    @Query("SELECT * FROM user WHERE email = :email")
+    User findUserWithEmail(String email);
+
+    @Query("SELECT * FROM user")
+    LiveData<List<User>> findAllUsers();
 }

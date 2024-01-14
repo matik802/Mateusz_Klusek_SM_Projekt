@@ -3,7 +3,7 @@ package com.example.book_rental;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-public class BookAndBorrow {
+public class BookAndUserForBorrow {
     @Embedded
     public Borrow borrow;
     @Relation(
@@ -11,4 +11,9 @@ public class BookAndBorrow {
             entityColumn = "id"
     )
     public Book book;
+    @Relation(
+            parentColumn = "user_id",
+            entityColumn = "id"
+    )
+    public User user;
 }
