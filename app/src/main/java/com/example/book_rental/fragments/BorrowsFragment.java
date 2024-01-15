@@ -8,7 +8,6 @@ import android.icu.text.DateFormat;
 import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,6 +25,7 @@ import com.example.book_rental.activities.BookDetailsActivity;
 import com.example.book_rental.models.Book;
 import com.example.book_rental.models.BookAndUserForBorrow;
 import com.example.book_rental.models.Borrow;
+import com.example.book_rental.viewModels.BookViewModel;
 import com.example.book_rental.viewModels.BorrowViewModel;
 import com.example.book_rental.utils.Const;
 import com.example.book_rental.utils.OnSwipeTouchListener;
@@ -42,6 +42,7 @@ public class BorrowsFragment extends Fragment {
     SharedPreferences sharedpreferences;
     View view;
     private BorrowViewModel borrowViewModel;
+    private BookViewModel bookViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view =  inflater.inflate(R.layout.fragment_borrows, container, false);
@@ -52,6 +53,7 @@ public class BorrowsFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
         borrowViewModel = new ViewModelProvider(requireActivity()).get(BorrowViewModel.class);
+        bookViewModel = new ViewModelProvider(requireActivity()).get(BookViewModel.class);
 
         sharedpreferences = getActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
         int userId = sharedpreferences.getInt(USER_ID_KEY, 0);
@@ -76,7 +78,7 @@ public class BorrowsFragment extends Fragment {
         super.onDestroyView();
     }
 
-    private class BorrowHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener {
+    private class BorrowHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         private TextView bookISBNTextView;
         private TextView borrowStatusTextView;
         private TextView borrowDateTextView;
@@ -137,22 +139,6 @@ public class BorrowsFragment extends Fragment {
         }
 
         @Override
-        public boolean onLongClick(View v) {
-            sharedpreferences = getActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
-            String role = sharedpreferences.getString(USER_ROLE_KEY, null);
-            if (role.equals(Const.roleAdmin) && !bookAndUserForBorrow.borrow.getStatus().equals(borrowStatusTextView.getText().toString())) {
-                Borrow borrow = bookAndUserForBorrow.borrow;
-                borrow.setStatus(borrowStatusTextView.getText().toString());
-                long mills = System.currentTimeMillis();
-                borrow.setDate(mills);
-                borrowViewModel.update(borrow);
-                borrowStatusTextView.setTextColor(Color.BLACK);
-                Toast.makeText(getActivity(),R.string.borrow_status_edited,Toast.LENGTH_SHORT).show();
-            }
-            return false;
-        }
-
-        @Override
         public void onClick(View v) {
             Book book = bookAndUserForBorrow.book;
             Intent intent = new Intent(getContext(), BookDetailsActivity.class);
@@ -163,6 +149,31 @@ public class BorrowsFragment extends Fragment {
             intent.putExtra(BookDetailsActivity.EXTRA_BOOK_ISBN, book.getISBN());
             intent.putExtra(BookDetailsActivity.EXTRA_BOOK_PICTURE, book.getImage());
             intent.putExtra(BookDetailsActivity.EXTRA_BOOK_AMOUNT, String.valueOf(book.getAmount()));
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            sharedpreferences = getActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+            String role = sharedpreferences.getString(USER_ROLE_KEY, null);
+            if (role.equals(Const.roleAdmin) && !bookAndUserForBorrow.borrow.getStatus().equals(borrowStatusTextView.getText().toString())) {
+                Borrow borrow = bookAndUserForBorrow.borrow;
+                Book book = bookAndUserForBorrow.book;
+                if (borrow.getStatus().equals(Const.statusReturned)) {
+                    book.setAmount(book.getAmount()-1);
+                    bookViewModel.update(book);
+                }
+                borrow.setStatus(borrowStatusTextView.getText().toString());
+                long mills = System.currentTimeMillis();
+                borrow.setDate(mills);
+                borrowViewModel.update(borrow);
+                borrowStatusTextView.setTextColor(Color.BLACK);
+                if (borrow.getStatus().equals(Const.statusReturned)) {
+                    book.setAmount(book.getAmount()+1);
+                    bookViewModel.update(book);
+                }
+                Toast.makeText(getActivity(),R.string.borrow_status_edited,Toast.LENGTH_SHORT).show();
+            }
+            return false;
         }
     }
 
