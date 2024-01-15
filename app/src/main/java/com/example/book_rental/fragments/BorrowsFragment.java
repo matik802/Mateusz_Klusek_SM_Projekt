@@ -153,25 +153,35 @@ public class BorrowsFragment extends Fragment {
 
         @Override
         public boolean onLongClick(View v) {
+            Borrow borrow = bookAndUserForBorrow.borrow;
+            Book book = bookAndUserForBorrow.book;
             sharedpreferences = getActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
             String role = sharedpreferences.getString(USER_ROLE_KEY, null);
-            if (role.equals(Const.roleAdmin) && !bookAndUserForBorrow.borrow.getStatus().equals(borrowStatusTextView.getText().toString())) {
-                Borrow borrow = bookAndUserForBorrow.borrow;
-                Book book = bookAndUserForBorrow.book;
-                if (borrow.getStatus().equals(Const.statusReturned)) {
-                    book.setAmount(book.getAmount()-1);
-                    bookViewModel.update(book);
+            if (role.equals(Const.roleAdmin)) {
+                if (bookAndUserForBorrow.borrow.getStatus().equals(borrowStatusTextView.getText().toString())) {
+                    Toast.makeText(getActivity(),R.string.status_not_changed,Toast.LENGTH_SHORT).show();
+                    borrowStatusTextView.setTextColor(Color.BLACK);
                 }
-                borrow.setStatus(borrowStatusTextView.getText().toString());
-                long mills = System.currentTimeMillis();
-                borrow.setDate(mills);
-                borrowViewModel.update(borrow);
-                borrowStatusTextView.setTextColor(Color.BLACK);
-                if (borrow.getStatus().equals(Const.statusReturned)) {
-                    book.setAmount(book.getAmount()+1);
-                    bookViewModel.update(book);
+                else if (borrow.getStatus().equals(Const.statusReturned) && book.getAmount() <= 0) {
+                    Toast.makeText(getActivity(),R.string.no_books_with_ISBN,Toast.LENGTH_SHORT).show();
                 }
-                Toast.makeText(getActivity(),R.string.borrow_status_edited,Toast.LENGTH_SHORT).show();
+                else {
+                    if (borrow.getStatus().equals(Const.statusReturned)) {
+                        book.setAmount(book.getAmount()-1);
+                        bookViewModel.update(book);
+                    }
+                    borrow.setStatus(borrowStatusTextView.getText().toString());
+                    long mills = System.currentTimeMillis();
+                    borrow.setDate(mills);
+                    borrowViewModel.update(borrow);
+                    borrowStatusTextView.setTextColor(Color.BLACK);
+                    if (borrow.getStatus().equals(Const.statusReturned)) {
+                        book.setAmount(book.getAmount()+1);
+                        bookViewModel.update(book);
+                    }
+                    Toast.makeText(getActivity(),R.string.borrow_status_edited,Toast.LENGTH_SHORT).show();
+                    borrowStatusTextView.setTextColor(Color.BLACK);
+                }
             }
             return false;
         }

@@ -62,6 +62,7 @@
     <string name="add_book_activity">Add book</string>
     <string name="edit_book_activity">Edit book</string>
 
-    <string name="borrow_status_edited">Borrow status edited</string>
-
+    <string name="borrow_status_edited">Borrow status edited.</string>
+    <string name="status_not_changed">There is nothing to change.</string>
+    <string name="no_books_with_ISBN">There is no books with this ISBN in magazine.</string>
 </resources>
