@@ -54,7 +54,7 @@ public interface Dao {
     @Query("SELECT * FROM borrow")
     LiveData<List<Borrow>> findAllBorrows();
 
-    @Query("SELECT * FROM borrow JOIN book ON borrow.book_id = book.id ORDER BY borrow.date desc")
+    @Query("SELECT * FROM borrow ORDER BY borrow.date desc")
     LiveData<List<BookAndUserForBorrow>> findBooksAndUsersForBorrows();
 
     @Query("SELECT * FROM borrow " +

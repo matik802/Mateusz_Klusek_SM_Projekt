@@ -33,7 +33,7 @@ public class BorrowViewModel extends AndroidViewModel {
     public LiveData<List<BookAndUserForBorrow>> findBooksAndUsersForBorrowsForUser(int userId) {
         return borrowRepository.findBooksAndUsersForBorrowsForUser(userId);
     }
-    Borrow findById(int id) {
+    public Borrow findById(int id) {
         return borrowRepository.findById(id);
     }
 
