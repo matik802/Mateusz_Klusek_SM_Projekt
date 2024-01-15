@@ -1,23 +1,23 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="20dp">
 
     <androidx.gridlayout.widget.GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:stretchMode="columnWidth"
-        app:columnCount="4"
-        app:rowCount="2">
+        app:columnCount="3"
+        app:rowCount="3">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="50"
             android:orientation="vertical"
             app:layout_column="0"
-            app:layout_columnWeight="1"
+            app:layout_columnWeight="2"
             app:layout_row="0">
 
             <TextView
@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:text="@string/book_ISBN_date_label"
-                android:textColor="@android:color/holo_blue_bright" />
+                android:textColor="@color/purple_500" />
 
             <TextView
                 android:id="@+id/book_ISBN"
@@ -34,14 +34,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:textColor="@android:color/black" />
-
-<!--            <TextView-->
-<!--                android:id="@+id/_borrow_date"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:gravity="left"-->
-<!--                android:text="@string/borrow_date_label"-->
-<!--                android:textColor="@android:color/holo_blue_bright" />-->
 
             <TextView
                 android:id="@+id/borrow_date"
@@ -51,38 +43,12 @@
                 android:textColor="@android:color/black" />
         </LinearLayout>
 
-<!--        <LinearLayout-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_weight="50"-->
-<!--            android:orientation="vertical"-->
-<!--            app:layout_column="1"-->
-<!--            app:layout_columnWeight="1"-->
-<!--            app:layout_row="0">-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/_borrow_date"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:gravity="left"-->
-<!--                android:text="@string/borrow_date_label"-->
-<!--                android:textColor="@android:color/holo_blue_bright" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/borrow_date"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:gravity="left"-->
-<!--                android:textColor="@android:color/black" />-->
-<!--        </LinearLayout>-->
-
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="50"
             android:orientation="vertical"
             app:layout_column="1"
-            app:layout_columnWeight="1"
+            app:layout_columnWeight="3"
             app:layout_row="0">
 
             <TextView
@@ -91,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:text="@string/user_email_label"
-                android:textColor="@android:color/holo_blue_bright" />
+                android:textColor="@color/purple_500" />
 
             <TextView
                 android:id="@+id/user_email"
@@ -102,12 +68,11 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="50"
             android:orientation="vertical"
             app:layout_column="2"
-            app:layout_columnWeight="1"
+            app:layout_columnWeight="1.2"
             app:layout_row="0">
 
             <TextView
@@ -116,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:text="@string/borrow_status_label"
-                android:textColor="@android:color/holo_blue_bright" />
+                android:textColor="@color/purple_500" />
 
             <TextView
                 android:id="@+id/borrow_status"
@@ -126,32 +91,5 @@
                 android:textColor="@android:color/black" />
         </LinearLayout>
 
-
-
-    </androidx.gridlayout.widget.GridLayout> </FrameLayout>
-
-
-    <!--        <LinearLayout-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="match_parent"-->
-    <!--            android:layout_weight="50"-->
-    <!--            android:orientation="vertical"-->
-    <!--            app:layout_column="1"-->
-    <!--            app:layout_columnWeight="1"-->
-    <!--            app:layout_row="1">-->
-
-    <!--            <TextView-->
-    <!--                android:id="@+id/label3"-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:gravity="center_horizontal"-->
-    <!--                android:textColor="@android:color/holo_blue_bright" />-->
-
-    <!--            <TextView-->
-    <!--                android:id="@+id/data3"-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:gravity="center_horizontal"-->
-    <!--                android:textColor="@android:color/black"-->
-    <!--                android:textSize="24sp" />-->
-    <!--        </LinearLayout>-->
+    </androidx.gridlayout.widget.GridLayout>
+</FrameLayout>
