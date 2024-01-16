@@ -32,8 +32,8 @@ public interface Dao {
     @Query("SELECT * FROM book ORDER BY title")
     LiveData<List<Book>> findAllBooks();
 
-    @Query("SELECT * FROM book WHERE title LIKE :title")
-    List<Book> findBookWithTitle(String title);
+    @Query("SELECT * FROM book WHERE title LIKE  '%' || :title || '%'")
+    LiveData<List<Book>> findBooksWithTitle(String title);
 
     @Query("SELECT * FROM book WHERE id = :id")
     Book findBookWithId(int id);

@@ -16,10 +16,4 @@
         android:name="com.example.book_rental.fragments.BorrowsFragment"
         android:label="@string/title_borrows"
         tools:layout="@layout/fragment_borrows" />
-
-<!--    <fragment-->
-<!--        android:id="@+id/navigation_messages"-->
-<!--        android:name="com.example.book_rental.fragments.MessagesFragment"-->
-<!--        android:label="@string/title_messages"-->
-<!--        tools:layout="@layout/fragment_messages" />-->
 </navigation>

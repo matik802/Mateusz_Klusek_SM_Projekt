@@ -11,9 +11,4 @@
         android:icon="@drawable/ic_dashboard_black_24dp"
         android:title="@string/title_borrows" />
 
-<!--    <item-->
-<!--        android:id="@+id/navigation_messages"-->
-<!--        android:icon="@drawable/baseline_message_24"-->
-<!--        android:title="@string/title_messages" />-->
-
 </menu>

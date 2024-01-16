@@ -35,20 +35,14 @@ public class BookDetailsActivity extends AppCompatActivity {
     private TextView ISBNTextView;
     private ImageView coverImage;
     private Button rentButton;
-    private TextView _authorTextView;
-    private TextView _amountTextView;
-    private TextView _ISBNTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_details);
 
         titleTextView = findViewById(R.id.book_title);
-        _authorTextView = findViewById(R.id._book_author);
         authorTextView = findViewById(R.id.book_author);
-        _amountTextView = findViewById(R.id._book_amount);
         amountTextView = findViewById(R.id.book_amount);
-        _ISBNTextView = findViewById(R.id._book_ISBN);
         ISBNTextView = findViewById(R.id.book_ISBN);
         coverImage = findViewById(R.id.book_cover);
         rentButton = findViewById(R.id.button_rent);
@@ -56,15 +50,12 @@ public class BookDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         titleTextView.setText(intent.getStringExtra(EXTRA_BOOK_TITLE));
-        _authorTextView.setText(R.string.book_author);
         authorTextView.setText(intent.getStringExtra(EXTRA_BOOK_AUTHOR));
         Picasso.get().load(intent.getStringExtra(EXTRA_BOOK_PICTURE))
                 .resize(0,1000)
                 .placeholder(R.drawable.baseline_image_24)
                 .into(coverImage);
-        _ISBNTextView.setText(R.string.book_ISBN);
         ISBNTextView.setText(intent.getStringExtra(EXTRA_BOOK_ISBN));
-        _amountTextView.setText(R.string.book_amount);
         amountTextView.setText(intent.getStringExtra(EXTRA_BOOK_AMOUNT));
 
         if (intent.getBooleanExtra(EXTRA_PREVIEW,false))

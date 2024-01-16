@@ -18,9 +18,10 @@
         android:gravity="center">
 
         <TextView
-            android:id="@+id/_book_author"
+            android:id="@+id/book_author_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/book_author"
             android:gravity="center" />
 
         <TextView
@@ -38,9 +39,10 @@
         android:gravity="center">
 
         <TextView
-            android:id="@+id/_book_ISBN"
+            android:id="@+id/book_ISBN_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/book_ISBN"
             android:gravity="center" />
 
         <TextView
@@ -66,9 +68,10 @@
         android:gravity="center">
 
         <TextView
-            android:id="@+id/_book_amount"
+            android:id="@+id/book_amount_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/book_amount"
             android:gravity="center" />
 
         <TextView

@@ -10,10 +10,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +39,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -48,25 +53,29 @@ public class BooksFragment extends Fragment {
     public static final String USER_ROLE_KEY = "user_role_key";
     private BookViewModel bookViewModel;
     private BorrowViewModel borrowViewModel;
-    SharedPreferences sharedpreferences;
-    View view;
+    private BookAdapter bookAdapter;
+    private SharedPreferences sharedpreferences;
+    private View view;
+    private List<Book> books;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view =  inflater.inflate(R.layout.fragment_books, container, false);
+
+        setHasOptionsMenu(true);
 
         sharedpreferences = getActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
         String role = sharedpreferences.getString(USER_ROLE_KEY, null);
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
-        final BookAdapter adapter = new BookAdapter();
-        recyclerView.setAdapter(adapter);
+        bookAdapter = new BookAdapter();
+        recyclerView.setAdapter(bookAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
         borrowViewModel = new ViewModelProvider(requireActivity()).get(BorrowViewModel.class);
 
         bookViewModel = new ViewModelProvider(requireActivity()).get(BookViewModel.class);
         bookViewModel.findAll().observe(getViewLifecycleOwner(), books -> {
-            adapter.setBooks(books);
+            bookAdapter.setBooks(books); this.books = books;
         });
 
         FloatingActionButton addBookButton = view.findViewById(R.id.add_button);
@@ -83,6 +92,50 @@ public class BooksFragment extends Fragment {
             addBookButton.setVisibility(View.GONE);
 
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        MenuInflater menuInflater = inflater;
+        menuInflater.inflate(R.menu.book_search_menu, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.menu_item_search);
+        final SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String title) {
+                filterBooksByTitle(title);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menu_item_clear) {
+            bookAdapter.setBooks(books);
+            return true;
+        }
+        else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void filterBooksByTitle(String title) {
+        List<Book> tempBooks = new ArrayList<>();
+        for (Book book : books) {
+            if (book.getTitle().toLowerCase().contains(title.toLowerCase())) {
+                tempBooks.add(book);
+            }
+        }
+        bookAdapter.setBooks(tempBooks);
     }
 
     @Override

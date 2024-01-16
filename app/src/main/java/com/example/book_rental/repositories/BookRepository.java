@@ -26,7 +26,7 @@ public class BookRepository {
     public Book findById(int id) {
         return bookDao.findBookWithId(id);
     }
-    public List<Book> findBookWithTitle(String title) { return bookDao.findBookWithTitle(title); }
+    public LiveData<List<Book>> findBooksWithTitle(String title) { return bookDao.findBooksWithTitle(title); }
 
     public void insert(Book book) {
         Database.databaseWriteExecutor.execute(() -> {bookDao.insert(book);

@@ -65,4 +65,7 @@
     <string name="borrow_status_edited">Borrow status edited.</string>
     <string name="status_not_changed">There is nothing to change.</string>
     <string name="no_books_with_ISBN">There is no books with this ISBN in magazine.</string>
+
+    <string name="search">Search</string>
+    <string name="clear_search">Clear search</string>
 </resources>
