@@ -88,6 +88,8 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        getSupportActionBar().setTitle(R.string.login_activity);
     }
 
 }

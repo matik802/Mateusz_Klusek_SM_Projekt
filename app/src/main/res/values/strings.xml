@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BOOK_RENTAL</string>
+    <string name="app_name">Book rental</string>
     <string name="title_books">Books</string>
     <string name="title_borrows">Borrows</string>
     <string name="title_messages">Messages</string>
