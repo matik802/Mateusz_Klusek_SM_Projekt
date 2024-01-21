@@ -186,6 +186,7 @@ public class BooksFragment extends Fragment {
 
     private class BookHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView bookTitleTextView;
+        private TextView bookAuthorTextView;
         private ImageView bookCoverImage;
         private Button bookEditButton;
         private Button bookDeleteButton;
@@ -196,6 +197,7 @@ public class BooksFragment extends Fragment {
             itemView.setOnClickListener(this);
 
             bookTitleTextView = itemView.findViewById(R.id.book_title);
+            bookAuthorTextView = itemView.findViewById(R.id.book_author);
             bookCoverImage = itemView.findViewById(R.id.book_cover);
 
             bookEditButton = itemView.findViewById(R.id.button_edit);
@@ -252,6 +254,7 @@ public class BooksFragment extends Fragment {
 
         public void bind(Book book) {
             bookTitleTextView.setText(book.getTitle());
+            bookAuthorTextView.setText(book.getAuthor());
             Picasso.get().load(book.getImage())
                     .resize(0,1000)
                     .placeholder(R.drawable.baseline_image_24)

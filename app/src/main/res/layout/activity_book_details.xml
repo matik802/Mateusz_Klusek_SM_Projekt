@@ -9,7 +9,9 @@
         android:id="@+id/book_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center" />
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="@color/black"/>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
@@ -22,13 +24,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/book_author"
-            android:gravity="center" />
+            android:gravity="center"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/book_author"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center" />
+            android:gravity="center"
+            android:textColor="@color/black"/>
 
     </LinearLayout>
 
@@ -43,13 +47,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/book_ISBN"
-            android:gravity="center" />
+            android:gravity="center"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/book_ISBN"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center" />
+            android:gravity="center"
+            android:textColor="@color/black"/>
 
     </LinearLayout>
 
@@ -72,13 +78,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/book_amount"
-            android:gravity="center" />
+            android:gravity="center"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/book_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center" />
+            android:gravity="center"
+            android:textColor="@color/black"/>
 
     </LinearLayout>
 

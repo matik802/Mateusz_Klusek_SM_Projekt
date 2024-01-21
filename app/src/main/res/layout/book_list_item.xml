@@ -10,7 +10,16 @@
         android:id="@+id/book_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center" />
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/book_author"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/gray"/>
 
     <ImageView
         android:id="@+id/book_cover"
