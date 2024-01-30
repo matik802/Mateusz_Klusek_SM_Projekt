@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="20dp">
+    android:layout_marginBottom="40dp">
 
     <androidx.gridlayout.widget.GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="@string/book_ISBN_date_label"
+                android:text="@string/book_ISBN_label"
                 android:textColor="@color/purple_500" />
 
             <TextView
@@ -36,11 +36,13 @@
                 android:textColor="@android:color/black" />
 
             <TextView
-                android:id="@+id/borrow_date"
+                android:id="@+id/book_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:textColor="@android:color/black" />
+                android:text="@string/book_details_text"
+                android:textColor="@color/blue_link" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -65,6 +67,15 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/borrow_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text=""
+                android:textColor="@android:color/black" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -89,7 +100,9 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:textColor="@android:color/black" />
+
         </LinearLayout>
 
     </androidx.gridlayout.widget.GridLayout>
+
 </FrameLayout>

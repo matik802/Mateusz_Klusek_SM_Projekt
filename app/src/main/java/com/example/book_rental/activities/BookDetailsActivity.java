@@ -28,7 +28,6 @@ public class BookDetailsActivity extends AppCompatActivity {
     public static final String SHARED_PREFS = "shared_prefs";
     public static final String USER_ID_KEY = "user_id_key";
     public static final String USER_ROLE_KEY = "user_role_key";
-    SharedPreferences sharedpreferences;
     private TextView titleTextView;
     private TextView authorTextView;
     private TextView amountTextView;

@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.book_rental.activities.AddBookActivity;
 import com.example.book_rental.activities.BookDetailsActivity;
 import com.example.book_rental.models.Book;
 import com.example.book_rental.models.BookAndUserForBorrow;
@@ -78,11 +79,12 @@ public class BorrowsFragment extends Fragment {
         super.onDestroyView();
     }
 
-    private class BorrowHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+    private class BorrowHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
         private TextView bookISBNTextView;
         private TextView borrowStatusTextView;
         private TextView borrowDateTextView;
         private TextView userEmailTextView;
+        private TextView bookDetailsTextView;
         private BookAndUserForBorrow bookAndUserForBorrow;
 
         public BorrowHolder(LayoutInflater inflater, ViewGroup parent) {
@@ -124,6 +126,22 @@ public class BorrowsFragment extends Fragment {
             borrowStatusTextView = itemView.findViewById(R.id.borrow_status);
             borrowDateTextView = itemView.findViewById(R.id.borrow_date);
             userEmailTextView = itemView.findViewById(R.id.user_email);
+            bookDetailsTextView = itemView.findViewById(R.id.book_details);
+            bookDetailsTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Book book = bookAndUserForBorrow.book;
+                    Intent intent = new Intent(getContext(), BookDetailsActivity.class);
+                    intent.putExtra(BookDetailsActivity.EXTRA_PREVIEW, true);
+                    intent.putExtra(BookDetailsActivity.EXTRA_BOOK_ID, book.getId());
+                    intent.putExtra(BookDetailsActivity.EXTRA_BOOK_TITLE, book.getTitle());
+                    intent.putExtra(BookDetailsActivity.EXTRA_BOOK_AUTHOR, book.getAuthor());
+                    intent.putExtra(BookDetailsActivity.EXTRA_BOOK_ISBN, book.getISBN());
+                    intent.putExtra(BookDetailsActivity.EXTRA_BOOK_PICTURE, book.getImage());
+                    intent.putExtra(BookDetailsActivity.EXTRA_BOOK_AMOUNT, String.valueOf(book.getAmount()));
+                    startActivity(intent);
+                }
+            });
         }
 
         public void bind(BookAndUserForBorrow bookAndUserForBorrow) {
@@ -136,19 +154,6 @@ public class BorrowsFragment extends Fragment {
             borrowDateTextView.setText(todayAsString);
             userEmailTextView.setText(bookAndUserForBorrow.user.getEmail());
             this.bookAndUserForBorrow = bookAndUserForBorrow;
-        }
-
-        @Override
-        public void onClick(View v) {
-            Book book = bookAndUserForBorrow.book;
-            Intent intent = new Intent(getContext(), BookDetailsActivity.class);
-            intent.putExtra(BookDetailsActivity.EXTRA_PREVIEW, true);
-            intent.putExtra(BookDetailsActivity.EXTRA_BOOK_ID, book.getId());
-            intent.putExtra(BookDetailsActivity.EXTRA_BOOK_TITLE, book.getTitle());
-            intent.putExtra(BookDetailsActivity.EXTRA_BOOK_AUTHOR, book.getAuthor());
-            intent.putExtra(BookDetailsActivity.EXTRA_BOOK_ISBN, book.getISBN());
-            intent.putExtra(BookDetailsActivity.EXTRA_BOOK_PICTURE, book.getImage());
-            intent.putExtra(BookDetailsActivity.EXTRA_BOOK_AMOUNT, String.valueOf(book.getAmount()));
         }
 
         @Override
